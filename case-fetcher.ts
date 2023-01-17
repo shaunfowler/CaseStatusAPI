@@ -13,7 +13,7 @@ const options = {
     }
 }
 
-export function fetchCaseRawHtml(receiptNumber: String): Promise<string> {
+function fetchCaseRawHtml(receiptNumber: String): Promise<string> {
     return new Promise((resolve, reject) => {
         let request = https.request(options, (res: IncomingMessage) => {
             let buffer: Buffer
@@ -42,18 +42,17 @@ export function fetchCaseRawHtml(receiptNumber: String): Promise<string> {
 }
 
 export function fetchCase(receiptNumber: string): Promise<CaseStatus> {
-
     return new Promise((resolve, reject) => {
         fetchCaseRawHtml(receiptNumber)
             .then((value) => {
                 let parsed = getCaseStatusFromHtml(receiptNumber, value)
                 resolve({
-                    receiptNumber: receiptNumber,
-                    status: parsed.status,
-                    description: parsed.description
+                    ...parsed,
+                    receiptNumber: receiptNumber
                 })
             })
             .catch((error) => {
+                console.log("rejecting", error)
                 reject(error)
             })
     })
