@@ -1,6 +1,7 @@
 import https from 'https'
 import { IncomingMessage } from 'http'
-
+import { CaseStatus } from './types'
+import { getCaseStatusFromHtml } from './parser'
 
 const options = {
     hostname: 'egov.uscis.gov',
@@ -40,21 +41,16 @@ export function fetchCaseRawHtml(receiptNumber: String): Promise<string> {
     })
 }
 
-type CaseStatus = {
-    receiptNumber: string
-    status: string
-    description: string
-}
-
 export function fetchCase(receiptNumber: string): Promise<CaseStatus> {
 
     return new Promise((resolve, reject) => {
         fetchCaseRawHtml(receiptNumber)
             .then((value) => {
+                let parsed = getCaseStatusFromHtml(receiptNumber, value)
                 resolve({
                     receiptNumber: receiptNumber,
-                    status: "ok",
-                    description: "something"
+                    status: parsed.status,
+                    description: parsed.description
                 })
             })
             .catch((error) => {
