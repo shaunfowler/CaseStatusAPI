@@ -1,5 +1,7 @@
 # CaseStatusAPI
 
+## About
+
 A convenience API that proxies requests to https://egov.uscis.gov/casestatus/mycasestatus.do via a POST request for a given receipt number and returns the case status in JSON format.
 
 Example request: 
@@ -17,4 +19,11 @@ Example response:
 date: "September 29, 2021",
     formType: "I-539"
 }
+```
+
+## Build & Run
+
+```
+docker build . -t case-status-api
+docker run -d -p 3000:3000 case-status-api
 ```
