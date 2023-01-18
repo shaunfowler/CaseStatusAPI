@@ -1,7 +1,7 @@
 import https from 'https'
 import { IncomingMessage } from 'http'
-import { CaseStatus } from './types'
-import { getCaseStatusFromHtml } from './parser'
+import { CaseStatus } from './models'
+import { getCaseStatusFromHtml } from './caseStatusHtmlParser'
 
 const options = {
     hostname: 'egov.uscis.gov',

@@ -1,5 +1,5 @@
 import { parse, HTMLElement } from 'node-html-parser'
-import { CaseStatus } from './types'
+import { CaseStatus } from './models'
 
 export function getCaseStatusFromHtml(receiptNumber: string, rawHtml: string): CaseStatus {
 
