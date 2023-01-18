@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express'
 import caseStatusRoute from './routes/caseStatus'
 import dotenv from 'dotenv'
 import rateLimiter from './middleware/rateLimiter'
+require('./repository/caseStatusRepository')
 
 dotenv.config()
 const app: Express = express()
